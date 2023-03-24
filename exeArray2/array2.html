@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas dos alunos</title>
+</head>
+<body>
+<div class="container">
+<h1>Programa Situação da Turma</h1>
+<hr>
+<div>
+    <label>Nome Aluno(a):</label> 
+    <input type="text" id="inNome" >
+</div>
+<div>
+    <label>1° Nota:</label> <input type="number" id="inNota1">
+</div>
+<div>
+    <label>2° Nota:</label> <input type="number" id="inNota2">
+</div>
+
+<input type="button" value="exibir média aluno" id="mediaAluno"> <input type="button" value="exibir média turma" id="mediaTurma">
+</div>
+<div>
+<p id="outMediaAluno"></p>
+<p id="outResultado"></p>
+<p id="outMediaTurma"></p>
+</div>
+
+
+
+
+<script>
+var notas = [];
+
+
+
+
+let mediaAluno = document.getElementById("mediaAluno")
+
+mediaAluno.addEventListener('click', ()=>{
+    let notaum = document.getElementById("inNota1")
+    let nota1 = notaum.value 
+
+    let entradaNome = document.getElementById("inNome")
+    let nome = entradaNome.value
+
+    let notadois = document.getElementById("inNota2")
+    let nota2 = notadois.value
+    if(nota1 <0 || nota1 >10 || nota2 <0 || nota2 >10){
+        alert("Não utilize valores maiores que 10 ou menores que 0 nos campos de nota")
+    } else if (nota1 == '' || nota2 == ''){
+        alert("Não deixe os campos vazios!")
+    } else{
+        let outResultado = document.getElementById("outResultado")
+       
+        let resultado = (parseFloat(nota1) + parseFloat(nota2)) /2
+        outResultado.textContent = `Média do aluno(a):${resultado}`
+        let saidaMA = document.getElementById("outMediaAluno")
+        if(resultado >= 7 ){    
+            // alert(`Parabéns ${nome}, você foi aprovado!`)
+            saidaMA.textContent = `Parabéns ${nome}, você foi aprovado`
+        } else if(resultado <7 && resultado >=3){
+            // alert(`Atenção ${nome}, você está em recuperação`)
+            saidaMA.textContent = `Atenção ${nome}, você está em recuperação`
+        }else{
+            // alert(`Ops${nome}, você foi reprovado`)
+            saidaMA.textContent = `Ops ${nome}, você foi reprovado`
+        }
+        
+        notas.push(resultado)
+    }
+    
+})
+
+let mediaTurma = document.getElementById("mediaTurma")
+mediaTurma.addEventListener('click', ()=>{
+    mediaSala = 0
+    if(notas.length = 0){
+        alert("Não há alunos para calcular a média da turma!")
+    }else{
+        for(i=0; i<notas.length;i++){
+            mediaSala += notas[i]
+        }
+        mediaSala = mediaSala/notas.length
+        let saidaTurma = document.getElementById("outMediaTurma")
+        saidaTurma.textContent = `Média da turma: ${mediaSala}`
+    }
+})
+
+</script>
+</body>
+</html>
